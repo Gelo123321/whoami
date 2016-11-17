@@ -13,10 +13,45 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\SDL2">
+      <UniqueIdentifier>{ee9c56c0-9092-4496-beba-9a9c1ac00fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SDL2">
+      <UniqueIdentifier>{42d19055-40f7-465f-a6b4-fe9c496bf6f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Managers">
+      <UniqueIdentifier>{7bd61032-b861-4c27-b66e-9769f97d525a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{8fb20bee-b26a-463a-b2f2-87a0697f3fe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\States">
+      <UniqueIdentifier>{76957da7-3fa4-4b9d-bdc8-0da0d04d8afa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{7bb2afe8-8983-47d3-bf6a-62d3630bbd87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{f09392a8-abd4-4d20-b869-e5fbaecdb4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{a4c900c7-27e5-429f-ac71-03aa865699a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Source Files\SDL2</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameEngine.h">
+      <Filter>Header Files\SDL2</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files\SDL2</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
