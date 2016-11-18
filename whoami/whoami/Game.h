@@ -1,23 +1,25 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Gelo123321 - 2016. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#ifndef GAMEENGINE_H
-#define GAMEENGINE_H
+#ifndef GAME_H
+#define GAME_H
+#include "TextureManager.h"
+#include "Player.h"
+#include "Enemy.h"
 #include <SDL.h>
 #include <string>
 #include <vector>
 #include <memory>
 #include <iostream>
 using namespace std;
-class GameState;
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class GameEngine
+class Game
 {
 public:
-	static GameEngine* Instance() 
+	static Game* Instance()
 	{
 		if (s_pInstance == 0) {
-			s_pInstance = new GameEngine();
+			s_pInstance = new Game();
 			return s_pInstance;
 		}
 
@@ -26,15 +28,10 @@ public:
 
 	bool init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
 
-	void changeState(GameState* state);
-	void pushState(GameState* state);
-	void popState();
-
 	void handleEvents();
 	void update();
-	void draw();
-
 	void render();
+
 	void clean();
 
 	bool running() { return m_bRunning; }
@@ -47,26 +44,29 @@ public:
 	int getGameHeight() const { return m_gameHeight; }
 
 private:
-	static GameEngine* s_pInstance;
+	static Game* s_pInstance;
+
+
+	std::vector<GameObject*> m_gameObjects;
+
+	int m_currentFrame;
+
 	SDL_Window* m_pWindow;
 	shared_ptr<SDL_Renderer> m_pRenderer;
 
 	int m_gameWidth;
 	int m_gameHeight;
 
-	// The stack of states.
-	vector<GameState*> states;
 	bool m_bRunning;
 	bool m_fullscreen;
 
-	GameEngine();
-	~GameEngine();
+	Game() {};
 
-	GameEngine(const GameEngine&) = delete;
-	GameEngine& operator=(const GameEngine&) = delete;
+	Game(const Game&) = delete;
+	Game& operator=(const Game&) = delete;
 };
 
-typedef GameEngine Game;
+typedef Game TheGame;
 
 #endif
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

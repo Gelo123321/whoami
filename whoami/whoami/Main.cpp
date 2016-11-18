@@ -2,9 +2,9 @@
 // Gelo123321 - 2016. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #define _CRT_SECURE_NO_WARNINGS
-#include <Windows.h>
+#include <windows.h>
 #include <iostream>
-#include "GameEngine.h"
+#include "Game.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 const int FPS = 60;
@@ -17,19 +17,17 @@ int main(int argc, char *argv[])
 	freopen("CON", "w", stdout);
 	Uint32 frameStart, frameTime;
 
-	std::cout << "game init attempt...\n";
-	if (Game::Instance()->init("whoami", 100, 100, 640, 480, false))
+	std::cout << "TheGame init attempt...\n";
+	if (TheGame::Instance()->init("whoami", 100, 100, 640, 480, false))
 	{
-		std::cout << "game init success!\n";
-		while (Game::Instance()->running())
+		std::cout << "TheGame init success!\n";
+		while (TheGame::Instance()->running())
 		{
 			frameStart = SDL_GetTicks();
 
-			Game::Instance()->handleEvents();
-			Game::Instance()->update();
-			Game::Instance()->draw();
-
-			Game::Instance()->render();
+			TheGame::Instance()->handleEvents();
+			TheGame::Instance()->update();
+			TheGame::Instance()->render();
 
 			frameTime = SDL_GetTicks() - frameStart;
 
@@ -41,12 +39,12 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		std::cout << "game init failure - " << SDL_GetError() << "\n";
+		std::cout << "TheGame init failure - " << SDL_GetError() << "\n";
 		return -1;
 	}
 
-	std::cout << "game closing...\n";
-	Game::Instance()->clean();
+	std::cout << "TheGame closing...\n";
+	TheGame::Instance()->clean();
 
 	return 0;
 }

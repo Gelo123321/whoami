@@ -117,12 +117,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SDLGameObject.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameEngine.h" />
-    <ClInclude Include="GameState.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="LoaderParams.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="SDLGameObject.h" />
+    <ClInclude Include="TextureManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
