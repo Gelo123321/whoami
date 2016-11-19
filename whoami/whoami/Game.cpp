@@ -76,18 +76,11 @@ bool Game::init(const char * title, int xpos, int ypos, int width, int height, b
 void Game::handleEvents()
 {
 	TheInputHandler::Instance()->update();
-
-	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN))
-	{
-		m_pStateManager->changeState(new PlayState());
-	}
 }
 
 void Game::update()
 {
-	//TheInputHandler::Instance()->update();
-
-	m_pStateManager->render();
+	m_pStateManager->update();
 }
 
 void Game::render()

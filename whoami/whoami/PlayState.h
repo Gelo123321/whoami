@@ -5,8 +5,11 @@
 #define PLAYSTATE_H
 
 #include <iostream>
+#include <vector>
 #include "SDL.h"
 #include "GameState.h"
+#include "PauseState.h"
+#include "GameObject.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class PlayState : public GameState
@@ -20,6 +23,8 @@ public:
 
 	virtual std::string getStateID() const { return s_playID; };
 private:
+
+	std::vector<GameObject*> m_gameObjects;
 
 	static const std::string s_playID;
 };

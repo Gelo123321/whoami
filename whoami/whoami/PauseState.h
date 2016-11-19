@@ -1,8 +1,8 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Gelo123321 - 2016. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#ifndef MENUSTATE_H
-#define MENUSTATE_H
+#ifndef PAUSESTATE_H
+#define PAUSESTATE_H
 
 #include <iostream>
 #include <vector>
@@ -12,7 +12,7 @@
 #include "MenuButton.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class MenuState : public GameState
+class PauseState : public GameState
 {
 public:
 	virtual void update();
@@ -21,15 +21,15 @@ public:
 	virtual bool onEnter();
 	virtual bool onExit();
 
-	virtual std::string getStateID() const { return s_menuID; };
+	virtual std::string getStateID() const { return s_pauseID; };
 private:
 
 	std::vector<GameObject*> m_gameObjects;
 
-	static void s_menuToPlay();
-	static void s_exitFromMenu();
+	static void s_pauseToMain();
+	static void s_resumePlay();
 
-	static const std::string s_menuID;
+	static const std::string s_pauseID;
 };
 #endif
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

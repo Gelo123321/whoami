@@ -53,6 +53,8 @@ public:
 	int getGameWidth() const { return m_gameWidth; }
 	int getGameHeight() const { return m_gameHeight; }
 
+	StateManager* getStateManager() { return m_pStateManager; }
+
 private:
 	static Game* s_pInstance;
 
