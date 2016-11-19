@@ -27,6 +27,10 @@ bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer * p
 
 	return false;
 }
+void TextureManager::clearFromTextureMap(std::string id)
+{
+	m_textureMap.erase(id);
+}
 void TextureManager::draw(std::string id, int x, int y, int width, int height, SDL_Renderer * pRenderer, SDL_RendererFlip flip)
 {
 	SDL_Rect srcRect;

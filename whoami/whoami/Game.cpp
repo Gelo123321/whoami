@@ -54,6 +54,8 @@ bool Game::init(const char * title, int xpos, int ypos, int width, int height, b
 		return false; // SDL init fail
 	}
 
+	m_pStateManager = new StateManager();
+	m_pStateManager->changeState(new MenuState());
 
 	if (!TheTextureManager::Instance()->load("resources\\img\\animate-alpha.png", "animate", m_pRenderer.get()))
 	{
@@ -73,42 +75,26 @@ bool Game::init(const char * title, int xpos, int ypos, int width, int height, b
 
 void Game::handleEvents()
 {
-	SDL_Event event;
+	TheInputHandler::Instance()->update();
 
-	if (SDL_PollEvent(&event)) {
-		switch (event.type) {
-		case SDL_QUIT:
-			TheGame::Instance()->quit();
-			break;
-		case SDL_KEYDOWN:
-			switch (event.key.keysym.sym) {
-			case SDLK_ESCAPE:
-				TheGame::Instance()->quit();
-				break;
-			}
-			break;
-		}
+	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN))
+	{
+		m_pStateManager->changeState(new PlayState());
 	}
 }
 
 void Game::update()
 {
-	TheInputHandler::Instance()->update();
+	//TheInputHandler::Instance()->update();
 
-	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); ++i)
-	{
-		m_gameObjects[i]->update();
-	}
+	m_pStateManager->render();
 }
 
 void Game::render()
 {
 	SDL_RenderClear(m_pRenderer.get());
 
-	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); ++i)
-	{
-		m_gameObjects[i]->draw();
-	}
+	m_pStateManager->render();
 
 	SDL_RenderPresent(m_pRenderer.get());
 }

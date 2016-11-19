@@ -3,15 +3,24 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #ifndef GAME_H
 #define GAME_H
+
 #include "TextureManager.h"
 #include "InputHandler.h"
+#include "StateManager.h"
+
+#include "MenuState.h"
+#include "PlayState.h"
+
 #include "Player.h"
 #include "Enemy.h"
+
 #include <SDL.h>
+
 #include <string>
 #include <vector>
 #include <memory>
 #include <iostream>
+
 using namespace std;
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class Game
@@ -47,6 +56,7 @@ public:
 private:
 	static Game* s_pInstance;
 
+	StateManager* m_pStateManager;
 
 	std::vector<GameObject*> m_gameObjects;
 
