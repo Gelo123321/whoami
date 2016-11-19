@@ -63,6 +63,8 @@ bool Game::init(const char * title, int xpos, int ypos, int width, int height, b
 	m_gameObjects.push_back(new Player(new LoaderParams(100, 100, 128, 82, "animate")));
 	m_gameObjects.push_back(new Enemy(new LoaderParams(300, 300, 128, 82, "animate")));
 
+	TheInputHandler::Instance()->initialiseJoysticks();
+
 	m_bRunning = true; // everything inited successfully, start the main loop
 
 	return true;
@@ -91,6 +93,8 @@ void Game::handleEvents()
 
 void Game::update()
 {
+	TheInputHandler::Instance()->update();
+
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); ++i)
 	{
 		m_gameObjects[i]->update();
@@ -112,6 +116,8 @@ void Game::render()
 void Game::clean()
 {
 	cout << "cleaning game\n";
+
+	TheInputHandler::Instance()->clean();
 
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(m_pRenderer.get());

@@ -7,6 +7,7 @@
 #include <iostream>
 #include "SDL.h"
 #include "SDLGameObject.h"
+#include "InputHandler.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class Player : public SDLGameObject
@@ -18,7 +19,7 @@ public:
 	virtual void update();
 	virtual void clean();
 private:
-
+	void handleInput();
 };
 #endif
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

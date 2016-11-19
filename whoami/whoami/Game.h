@@ -4,6 +4,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include "TextureManager.h"
+#include "InputHandler.h"
 #include "Player.h"
 #include "Enemy.h"
 #include <SDL.h>
