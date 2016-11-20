@@ -1,37 +1,27 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Gelo123321 - 2016. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include "Enemy.h"
+#include "AnimatedGraphic.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Enemy::Enemy(const LoaderParams * pParams) : SDLGameObject(pParams)
+AnimatedGraphic::AnimatedGraphic(const LoaderParams * pParams, int animSpeed) : SDLGameObject(pParams), m_animSpeed(animSpeed)
 {
-	m_velocity.setX(0.001);
-	m_velocity.setY(2);
+
 }
 
-void Enemy::draw()
+void AnimatedGraphic::draw()
 {
 	SDLGameObject::draw();
 }
 
-void Enemy::update()
+void AnimatedGraphic::update()
 {
-	m_currentFrame = int(((SDL_GetTicks() / 100) % 5)); // m_numFrames
-
-	if (m_position.getY() < 0)
-	{
-		m_velocity.setY(2);
-	}
-	else if (m_position.getY() > 400)
-	{
-		m_velocity.setY(-2);
-	}
-	SDLGameObject::update();
+	m_currentFrame = int(((SDL_GetTicks() / (1000 / m_animSpeed)) % 2));
 }
-void Enemy::clean()
-{
 
+void AnimatedGraphic::clean()
+{
+	SDLGameObject::clean();
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

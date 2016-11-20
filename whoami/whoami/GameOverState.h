@@ -1,19 +1,19 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Gelo123321 - 2016. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#ifndef PLAYSTATE_H
-#define PLAYSTATE_H
+#ifndef GAMEOVERSTATE_H
+#define GAMEOVERSTATE_H
 
 #include <iostream>
 #include <vector>
 #include "SDL.h"
 #include "GameState.h"
-#include "PauseState.h"
-#include "GameOverState.h"
-#include "GameObject.h"
+#include "TextureManager.h"
+#include "MenuButton.h"
+#include "AnimatedGraphic.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class PlayState : public GameState
+class GameOverState : public GameState
 {
 public:
 	virtual void update();
@@ -22,14 +22,15 @@ public:
 	virtual bool onEnter();
 	virtual bool onExit();
 
-	bool checkCollision(SDLGameObject* p1, SDLGameObject* p2);
-
-	virtual std::string getStateID() const { return s_playID; };
+	virtual std::string getStateID() const { return s_gameOverID; }
 private:
 
 	std::vector<GameObject*> m_gameObjects;
 
-	static const std::string s_playID;
+	static void s_gameOverToMain();
+	static void s_restartPlay();
+
+	static const std::string s_gameOverID;
 };
 #endif
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -1,40 +1,24 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Gelo123321 - 2016. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#ifndef SDLGAMEOBJECT_H
-#define SDLGAMEOBJECT_H
+#ifndef ANIMATEDGRAPHIC_H
+#define ANIMATEDGRAPHIC_H
 
 #include <iostream>
 #include "SDL.h"
-#include "GameObject.h"
-#include "Vector2D.h"
+#include "SDLGameObject.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class SDLGameObject : public GameObject
+class AnimatedGraphic : public SDLGameObject
 {
 public:
-	SDLGameObject(const LoaderParams* pParams);
+	AnimatedGraphic(const LoaderParams* pParams, int animSpeed);
 
 	virtual void draw();
 	virtual void update();
 	virtual void clean();
-
-	Vector2D& getPosition() { return m_position; }
-	int getWidth() { return m_width; }
-	int getHeight() { return m_height; }
-
-protected:
-	Vector2D m_position;
-	Vector2D m_velocity;
-	Vector2D m_acceleration;
-
-	int m_width;
-	int m_height;
-
-	int m_currentRow;
-	int m_currentFrame;
-
-	std::string m_textureID;
+private:
+	int m_animSpeed;
 };
 #endif
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

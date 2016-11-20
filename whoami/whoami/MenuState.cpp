@@ -8,9 +8,15 @@ const std::string MenuState::s_menuID = "MENU";
 
 void MenuState::update()
 {
-	for (int i = 0; i < m_gameObjects.size(); i++)
+	if (!m_gameObjects.empty())
 	{
-		m_gameObjects[i]->update();
+		for (int i = 0; i < m_gameObjects.size(); i++)
+		{
+			if (m_gameObjects[i] != 0)
+			{
+				m_gameObjects[i]->update();
+			}
+		}
 	}
 }
 
