@@ -54,18 +54,14 @@ bool Game::init(const char * title, int xpos, int ypos, int width, int height, b
 		return false; // SDL init fail
 	}
 
+	TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
+	TheGameObjectFactory::Instance()->registerType("Player", new  PlayerCreator());
+	TheGameObjectFactory::Instance()->registerType("Enemy", new  EnemyCreator());
+	TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
+
 	m_pStateManager = new StateManager();
-	m_pStateManager->changeState(new MenuState());
+	m_pStateManager->changeState(new MainMenuState());
 
-	if (!TheTextureManager::Instance()->load("resources\\img\\animate-alpha.png", "animate", m_pRenderer.get()))
-	{
-		return false;
-	}
-
-	m_gameObjects.push_back(new Player(new LoaderParams(100, 100, 128, 82, "animate")));
-	m_gameObjects.push_back(new Enemy(new LoaderParams(300, 300, 128, 82, "animate")));
-
-	TheInputHandler::Instance()->initialiseJoysticks();
 
 	m_bRunning = true; // everything inited successfully, start the main loop
 

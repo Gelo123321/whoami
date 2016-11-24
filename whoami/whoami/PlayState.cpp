@@ -32,22 +32,11 @@ void PlayState::render()
 
 bool PlayState::onEnter()
 {
-	if (!TheTextureManager::Instance()->load("resources\\img\\helicopter.png", "helicopter", TheGame::Instance()->getRenderer().get()))
-	{
-		return false;
-	}
-	if (!TheTextureManager::Instance()->load("resources\\img\\helicopter2.png", "helicopter2", TheGame::Instance()->getRenderer().get()))
-	{
-		return false;
-	}
+	// parse the state  
+	StateParser stateParser;  
+	stateParser.parseState("test.xml", s_playID, &m_gameObjects,   &m_textureIDList);
 
-	GameObject* player = new Player(new LoaderParams(500, 100, 128, 55, "helicopter"));
-	GameObject* enemy = new Enemy(new LoaderParams(100, 100, 128, 55, "helicopter2"));
-
-	m_gameObjects.push_back(player);
-	m_gameObjects.push_back(enemy);
-
-	std::cout << "entering PlayState\n";
+	std::cout << "entering PlayState\n";  
 	return true;
 }
 
@@ -59,7 +48,12 @@ bool PlayState::onExit()
 	}
 
 	m_gameObjects.clear();
-	TheTextureManager::Instance()->clearFromTextureMap("helicopter");
+	
+	// clear the texture manager 
+	for (int i = 0; i < m_textureIDList.size(); i++)
+	{
+		TheTextureManager::Instance()->clearFromTextureMap(m_textureIDList[i]);
+	}
 
 	std::cout << "exiting PlayState\n";
 	return true;

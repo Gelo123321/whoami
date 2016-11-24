@@ -24,31 +24,19 @@ void GameOverState::render()
 
 bool GameOverState::onEnter()
 {
-	if (!TheTextureManager::Instance()->load("resources\\img\\gameover.png", "gameovertext", TheGame::Instance()->getRenderer().get()))
-	{
-		return false;
-	}
+ 
+	// parse the state
+	StateParser stateParser;
+	stateParser.parseState("test.xml", s_gameOverID, &m_gameObjects,   &m_textureIDList);
 
-	if (!TheTextureManager::Instance()->load("resources\\img\\main.png", "mainbutton", TheGame::Instance()->getRenderer().get()))
-	{
-		return false;
-	}
+	m_callbacks.push_back(0);
+	m_callbacks.push_back(s_gameOverToMain);
+	m_callbacks.push_back(s_restartPlay);
 
-	if (!TheTextureManager::Instance()->load("resources\\img\\restart.png", "restartbutton", TheGame::Instance()->getRenderer().get()))
-	{
-		return false;
-	}
+	// set the callbacks for menu items
+	setCallbacks(m_callbacks);
 
-	GameObject* gameOverText = new AnimatedGraphic(new LoaderParams(200, 100, 190, 30, "gameovertext"), 2);
-	GameObject* button1 = new MenuButton(new LoaderParams(200, 200, 200, 80, "mainbutton"), s_gameOverToMain);
-	GameObject* button2 = new MenuButton(new LoaderParams(200, 300, 200, 80, "restartbutton"), s_restartPlay);
-
-	m_gameObjects.push_back(gameOverText);
-	m_gameObjects.push_back(button1);
-	m_gameObjects.push_back(button2);
-
-	std::cout << "entering GameOverState\n";
-	return true;
+	std::cout << "entering PauseState\n";  return true;
 }
 
 bool GameOverState::onExit()
@@ -66,9 +54,26 @@ bool GameOverState::onExit()
 	return true;
 }
 
+void GameOverState::setCallbacks(const std::vector<Callback>& callbacks)
+{
+	// go through the game objects
+	if (!m_gameObjects.empty())
+	{
+		for (int i = 0; i < m_gameObjects.size(); i++)
+		{
+			// if they are of type MenuButton then assign a callback based on the id passed in from the file
+			if (dynamic_cast<MenuButton*>(m_gameObjects[i]))
+			{
+				MenuButton* pButton = dynamic_cast<MenuButton*>(m_gameObjects[i]);
+				pButton->setCallback(callbacks[pButton->getCallbackID()]);
+			}
+		}
+	}
+}
+
 void GameOverState::s_gameOverToMain()
 {
-	TheGame::Instance()->getStateManager()->changeState(new MenuState());
+	TheGame::Instance()->getStateManager()->changeState(new MainMenuState());
 }
 
 void GameOverState::s_restartPlay()

@@ -11,9 +11,10 @@
 #include "TextureManager.h"
 #include "MenuButton.h"
 #include "AnimatedGraphic.h"
+#include "MenuState.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class GameOverState : public GameState
+class GameOverState : public MenuState
 {
 public:
 	virtual void update();
@@ -24,6 +25,8 @@ public:
 
 	virtual std::string getStateID() const { return s_gameOverID; }
 private:
+
+	virtual void setCallbacks(const std::vector<Callback>& callbacks);
 
 	std::vector<GameObject*> m_gameObjects;
 

@@ -4,11 +4,12 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "GameObjectFactory.h"
 #include "TextureManager.h"
 #include "InputHandler.h"
 #include "StateManager.h"
 
-#include "MenuState.h"
+#include "MainMenuState.h"
 #include "PlayState.h"
 
 #include "Player.h"

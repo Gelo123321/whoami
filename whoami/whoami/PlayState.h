@@ -8,6 +8,7 @@
 #include <vector>
 #include "SDL.h"
 #include "GameState.h"
+#include "StateParser.h"
 #include "PauseState.h"
 #include "GameOverState.h"
 #include "GameObject.h"

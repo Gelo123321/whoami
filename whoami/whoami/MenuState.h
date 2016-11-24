@@ -15,21 +15,15 @@
 class MenuState : public GameState
 {
 public:
-	virtual void update();
-	virtual void render();
 
-	virtual bool onEnter();
-	virtual bool onExit();
+	virtual ~MenuState() {}
 
-	virtual std::string getStateID() const { return s_menuID; };
-private:
+protected:
 
-	std::vector<GameObject*> m_gameObjects;
+	typedef void(*Callback)();
+	virtual void setCallbacks(const std::vector<Callback>& callbacks) = 0;
 
-	static void s_menuToPlay();
-	static void s_exitFromMenu();
-
-	static const std::string s_menuID;
+	std::vector<Callback> m_callbacks;
 };
 #endif
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

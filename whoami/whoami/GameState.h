@@ -18,8 +18,8 @@ public:
 	virtual bool onExit() = 0;
 
 	virtual std::string getStateID() const = 0;
-private:
-	
+protected:
+	std::vector<std::string> m_textureIDList;
 };
 #endif
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

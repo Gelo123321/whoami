@@ -11,7 +11,7 @@ bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer * p
 
 	if (pTempSurface == 0)
 	{
-		std::cout << IMG_GetError();
+		std::cout << IMG_GetError() << "\n";
 		return false;
 	}
 

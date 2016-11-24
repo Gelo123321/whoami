@@ -7,18 +7,30 @@
 #include <iostream>
 #include "SDL.h"
 #include "SDLGameObject.h"
+#include "GameObjectFactory.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class AnimatedGraphic : public SDLGameObject
 {
 public:
-	AnimatedGraphic(const LoaderParams* pParams, int animSpeed);
+	AnimatedGraphic();
+
+	void AnimatedGraphic::load(const LoaderParams *pParams);
 
 	virtual void draw();
 	virtual void update();
 	virtual void clean();
 private:
 	int m_animSpeed;
+};
+
+// for the factory
+class AnimatedGraphicCreator : public BaseCreator
+{
+	GameObject* createGameObject() const
+	{
+		return new AnimatedGraphic();
+	}
 };
 #endif
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

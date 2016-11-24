@@ -1,20 +1,26 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Gelo123321 - 2016. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include "PauseState.h"
+#include "MainMenuState.h"
 #include "Game.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const std::string PauseState::s_pauseID = "PAUSE";
+const std::string MainMenuState::s_menuID = "MENU";
 
-void PauseState::update()
+void MainMenuState::update()
 {
-	for (int i = 0; i < m_gameObjects.size(); i++)
+	if (!m_gameObjects.empty())
 	{
-		m_gameObjects[i]->update();
+		for (int i = 0; i < m_gameObjects.size(); i++)
+		{
+			if (m_gameObjects[i] != 0)
+			{
+				m_gameObjects[i]->update();
+			}
+		}
 	}
 }
 
-void PauseState::render()
+void MainMenuState::render()
 {
 	for (int i = 0; i < m_gameObjects.size(); i++)
 	{
@@ -22,23 +28,22 @@ void PauseState::render()
 	}
 }
 
-bool PauseState::onEnter()
+bool MainMenuState::onEnter()
 {
 	StateParser stateParser;
-	stateParser.parseState("test.xml", s_pauseID, &m_gameObjects, &m_textureIDList);
+	stateParser.parseState("test.xml", s_menuID, &m_gameObjects, &m_textureIDList);
 
 	m_callbacks.push_back(0);
-	m_callbacks.push_back(s_pauseToMain);
-	m_callbacks.push_back(s_resumePlay);
-
+	m_callbacks.push_back(s_menuToPlay);
+	m_callbacks.push_back(s_exitFromMenu);
 
 	setCallbacks(m_callbacks);
 
-	std::cout << "entering PauseState\n";
+	std::cout << "entering MainMenuState\n";
 	return true;
 }
 
-bool PauseState::onExit()
+bool MainMenuState::onExit()
 {
 	for (int i = 0; i < m_gameObjects.size(); i++)
 	{
@@ -47,17 +52,17 @@ bool PauseState::onExit()
 
 	m_gameObjects.clear();
 
-	// clear the texture manager
-	for(int i = 0; i < m_textureIDList.size(); i++) 
+	// clear the texture manager 
+	for (int i = 0; i < m_textureIDList.size(); i++)
 	{
 		TheTextureManager::Instance()->clearFromTextureMap(m_textureIDList[i]);
 	}
 
-	std::cout << "exiting PauseState\n";
+	std::cout << "exiting MainMenuState\n";
 	return true;
 }
 
-void PauseState::setCallbacks(const std::vector<Callback>& callbacks)
+void MainMenuState::setCallbacks(const std::vector<Callback>& callbacks)
 {
 	// go through the game objects
 	if (!m_gameObjects.empty())
@@ -74,14 +79,14 @@ void PauseState::setCallbacks(const std::vector<Callback>& callbacks)
 	}
 }
 
-void PauseState::s_pauseToMain()
+void MainMenuState::s_menuToPlay()
 {
-	TheGame::Instance()->getStateManager()->changeState(new MainMenuState());
+	TheGame::Instance()->getStateManager()->changeState(new PlayState());
 }
 
-void PauseState::s_resumePlay()
+void MainMenuState::s_exitFromMenu()
 {
-	TheGame::Instance()->getStateManager()->popState();
+	TheGame::Instance()->quit();
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

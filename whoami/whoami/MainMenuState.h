@@ -1,18 +1,15 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Gelo123321 - 2016. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#ifndef PAUSESTATE_H
-#define PAUSESTATE_H
+#ifndef MAINMENUSTATE_H
+#define MAINMENUSTATE_H
 
-#include <iostream>
-#include <vector>
-#include "SDL.h"
 #include "MenuState.h"
-#include "TextureManager.h"
-#include "MenuButton.h"
+#include "GameObject.h"
+#include "StateParser.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class PauseState : public MenuState
+class MainMenuState : public MenuState
 {
 public:
 	virtual void update();
@@ -21,17 +18,21 @@ public:
 	virtual bool onEnter();
 	virtual bool onExit();
 
-	virtual std::string getStateID() const { return s_pauseID; };
+	virtual std::string getStateID() const { return s_menuID; };
 private:
 
-	virtual void setCallbacks(const std::vector<Callback>& callbacks);
+	virtual void setCallbacks(const std::vector<Callback> & callbacks);
 
 	std::vector<GameObject*> m_gameObjects;
 
-	static void s_pauseToMain();
-	static void s_resumePlay();
+	static void s_menuToPlay();
+	static void s_exitFromMenu();
 
-	static const std::string s_pauseID;
+	static const std::string s_menuID;
+
+	typedef void(*Callback)();
+
+	std::vector<Callback> m_callbacks;
 };
 #endif
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
