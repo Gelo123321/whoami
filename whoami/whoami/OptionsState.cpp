@@ -1,26 +1,20 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Gelo123321 - 2016. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Gelo123321 - 2017. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#include "MainMenuState.h"
+#include "OptionsState.h"
 #include "Game.h"
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const std::string MainMenuState::s_menuID = "MENU";
+const std::string OptionsState::s_optionsID = "OPTIONS";
 
-void MainMenuState::update()
+void OptionsState::update()
 {
-	if (!m_gameObjects.empty())
+	for (int i = 0; i < m_gameObjects.size(); i++)
 	{
-		for (int i = 0; i < m_gameObjects.size(); i++)
-		{
-			if (m_gameObjects[i] != 0)
-			{
-				m_gameObjects[i]->update();
-			}
-		}
+		m_gameObjects[i]->update();
 	}
 }
 
-void MainMenuState::render()
+void OptionsState::render()
 {
 	for (int i = 0; i < m_gameObjects.size(); i++)
 	{
@@ -28,23 +22,22 @@ void MainMenuState::render()
 	}
 }
 
-bool MainMenuState::onEnter()
+bool OptionsState::onEnter()
 {
 	StateParser stateParser;
-	stateParser.parseState("test.xml", s_menuID, &m_gameObjects, &m_textureIDList);
+	stateParser.parseState("test.xml", s_optionsID, &m_gameObjects, &m_textureIDList);
 
 	m_callbacks.push_back(0);
-	m_callbacks.push_back(s_menuToPlay);
-	m_callbacks.push_back(s_options);
-	m_callbacks.push_back(s_exitFromMenu);
+	m_callbacks.push_back(s_optionsToMain);
+
 
 	setCallbacks(m_callbacks);
 
-	std::cout << "entering MainMenuState\n";
+	std::cout << "entering OptionsState\n";
 	return true;
 }
 
-bool MainMenuState::onExit()
+bool OptionsState::onExit()
 {
 	for (int i = 0; i < m_gameObjects.size(); i++)
 	{
@@ -53,17 +46,17 @@ bool MainMenuState::onExit()
 
 	m_gameObjects.clear();
 
-	// clear the texture manager 
+	// clear the texture manager
 	for (int i = 0; i < m_textureIDList.size(); i++)
 	{
 		TheTextureManager::Instance()->clearFromTextureMap(m_textureIDList[i]);
 	}
 
-	std::cout << "exiting MainMenuState\n";
+	std::cout << "exiting OptionsState\n";
 	return true;
 }
 
-void MainMenuState::setCallbacks(const std::vector<Callback>& callbacks)
+void OptionsState::setCallbacks(const std::vector<Callback>& callbacks)
 {
 	// go through the game objects
 	if (!m_gameObjects.empty())
@@ -80,19 +73,9 @@ void MainMenuState::setCallbacks(const std::vector<Callback>& callbacks)
 	}
 }
 
-void MainMenuState::s_menuToPlay()
+void OptionsState::s_optionsToMain()
 {
-	TheGame::Instance()->getStateManager()->changeState(new PlayState());
-}
-
-void MainMenuState::s_options()
-{
-	TheGame::Instance()->getStateManager()->changeState(new OptionsState());
-}
-
-void MainMenuState::s_exitFromMenu()
-{
-	TheGame::Instance()->quit();
+	TheGame::Instance()->getStateManager()->changeState(new MainMenuState());
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

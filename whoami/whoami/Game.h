@@ -74,6 +74,11 @@ private:
 	bool m_bRunning;
 	bool m_fullscreen;
 
+	SDL_Cursor* m_pCursor;
+	SDL_Surface* m_pSurfaceCursor;
+
+	SDL_Surface* m_pSurfaceIcon;
+
 	Game() {};
 
 	Game(const Game&) = delete;

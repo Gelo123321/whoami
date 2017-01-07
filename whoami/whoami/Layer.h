@@ -1,26 +1,19 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Gelo123321 - 2016. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
-
-#include <iostream>
-#include <vector>
-#include "SDL.h"
-
+#ifndef LAYER_H
+#define LAYER_H
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class GameState
+class Level;
+
+class Layer
 {
 public:
-	virtual void update() = 0;
+
+	virtual ~Layer() {}
+
 	virtual void render() = 0;
-
-	virtual bool onEnter() = 0;
-	virtual bool onExit() = 0;
-
-	virtual std::string getStateID() const = 0;
-protected:
-	std::vector<std::string> m_textureIDList;
+	virtual void update(Level* pLevel) = 0;
 };
 #endif
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

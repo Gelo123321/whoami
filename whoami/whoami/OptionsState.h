@@ -1,16 +1,20 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Gelo123321 - 2016. +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#ifndef MAINMENUSTATE_H
-#define MAINMENUSTATE_H
+#ifndef OPTIONSSTATE_H
+#define OPTIONSSTATE_H
 
+#include <iostream>
+#include <vector>
+#include "SDL.h"
+#include "GameState.h"
+#include "TextureManager.h"
+#include "MenuButton.h"
+#include "AnimatedGraphic.h"
 #include "MenuState.h"
-#include "GameObject.h"
-#include "StateParser.h"
-#include "OptionsState.h"
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class MainMenuState : public MenuState
+class OptionsState : public MenuState
 {
 public:
 	virtual void update();
@@ -19,22 +23,16 @@ public:
 	virtual bool onEnter();
 	virtual bool onExit();
 
-	virtual std::string getStateID() const { return s_menuID; };
+	virtual std::string getStateID() const { return s_optionsID; }
 private:
 
-	virtual void setCallbacks(const std::vector<Callback> & callbacks);
+	virtual void setCallbacks(const std::vector<Callback>& callbacks);
 
 	std::vector<GameObject*> m_gameObjects;
 
-	static void s_menuToPlay();
-	static void s_options();
-	static void s_exitFromMenu();
+	static void s_optionsToMain();
 
-	static const std::string s_menuID;
-
-	typedef void(*Callback)();
-
-	std::vector<Callback> m_callbacks;
+	static const std::string s_optionsID;
 };
 #endif
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

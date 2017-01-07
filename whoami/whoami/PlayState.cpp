@@ -20,6 +20,7 @@ void PlayState::update()
 	{
 		TheGame::Instance()->getStateManager()->pushState(new GameOverState());
 	}
+	
 }
 
 void PlayState::render()

@@ -47,6 +47,34 @@ bool Game::init(const char * title, int xpos, int ypos, int width, int height, b
 			cout << "window init fail\n";
 			return false; // window init fail
 		}
+
+		m_pSurfaceIcon = IMG_Load("resources//img//icon.png");
+
+		if (!m_pSurfaceIcon)
+		{
+			cout << "icon load fail\n";
+			return false; // icon load fail
+		}
+
+		SDL_SetWindowIcon(m_pWindow, m_pSurfaceIcon);
+
+		m_pSurfaceCursor = IMG_Load("resources//img//cursor.png");
+
+		if (!m_pSurfaceCursor)
+		{
+			cout << "cursor load fail\n";
+			return false; // cursor load fail
+		}
+
+		m_pCursor = SDL_CreateColorCursor(m_pSurfaceCursor, 0, 0);
+
+		if (!m_pCursor)
+		{
+			cout << "cursor set fail\n";
+			return false; // cursor setfail
+		}
+
+		SDL_SetCursor(m_pCursor);
 	}
 	else
 	{
